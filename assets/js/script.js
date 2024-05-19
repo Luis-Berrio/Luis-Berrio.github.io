@@ -135,25 +135,43 @@ for (let i = 0; i < navigationLinks.length; i++) {
     }
   });
 }
-
 document.addEventListener('DOMContentLoaded', function() {
   const btn = document.getElementById('btn');
+  const form = document.getElementById('form-email');
 
-  document.getElementById('form-email').addEventListener('submit', function(event) {
-      event.preventDefault();
+  if (form) {
+      form.addEventListener('submit', function(event) {
+          event.preventDefault();
 
-      btn.value = 'Sending...';
+          btn.value = 'Sending...';
 
-      const serviceID = 'default_service';
-      const templateID = 'template_m77z8d9';
+          const serviceID = 'default_service';
+          const templateID = 'template_m77z8d9';
 
-      emailjs.sendForm(serviceID, templateID, this)
-          .then(() => {
-              btn.value = 'Send Email';
-              alert('Sent!');
-          }, (err) => {
-              btn.value = 'Send Email';
-              alert(JSON.stringify(err));
+          emailjs.sendForm(serviceID, templateID, this)
+              .then(() => {
+                  btn.value = 'Send Email';
+                  alert('Sent!');
+              }, (err) => {
+                  btn.value = 'Send Email';
+                  alert(JSON.stringify(err));
+              });
+      });
+
+      // Desactivar el botón hasta que todos los campos estén llenos
+      const formInputs = document.querySelectorAll('[data-form-input]');
+      const formBtn = document.querySelector('[data-form-btn]');
+
+      formInputs.forEach(input => {
+          input.addEventListener('input', function() {
+              if (form.checkValidity()) {
+                  formBtn.removeAttribute('disabled');
+              } else {
+                  formBtn.setAttribute('disabled', '');
+              }
           });
-  });
+      });
+  } else {
+      console.error('Form not found');
+  }
 });
