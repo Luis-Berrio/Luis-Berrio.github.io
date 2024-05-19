@@ -143,7 +143,7 @@ document.getElementById("form").addEventListener("submit", function (event) {
   console.log("enviado");
   btn.value = "Sending...";
 
-  const serviceID = "service_tr5fsuh";
+  const serviceID = "default_service";
   const templateID = "template_m77z8d9";
 
   emailjs.sendForm(serviceID, templateID, this).then(
