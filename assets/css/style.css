@@ -433,6 +433,15 @@
     font-size: var(--fs-7);
   }
   
+.contact-link{
+  text-decoration: none;
+  color: inherit;
+}
+
+.contact-link:hover{
+  color: inherit;
+}
+
   .contact-info address { font-style: normal; }
   
   .social-list {
