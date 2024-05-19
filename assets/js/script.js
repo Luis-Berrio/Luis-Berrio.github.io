@@ -178,13 +178,3 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 
-document.addEventListener('DOMContentLoaded', function() {
-  // Obtén el elemento del botón de "Portfolio"
-  const portfolioButton = document.querySelector('.navbar-item:nth-child(3)');
-  
-  // Añade la clase 'hidden' para ocultarlo
-  portfolioButton.classList.add('hidden');
-
-  // Si deseas mostrarlo más adelante, puedes remover la clase 'hidden'
-  // portfolioButton.classList.remove('hidden');
-});
