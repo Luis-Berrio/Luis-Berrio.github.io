@@ -639,7 +639,13 @@
                 data-form-input
               ></textarea>
 
-              <button class="form-btn" type="submit" id="btn" disabled data-form-btn>
+              <button
+                class="form-btn"
+                type="submit"
+                id="btn"
+                disabled
+                data-form-btn
+              >
                 <ion-icon name="paper-plane"></ion-icon>
                 <span>Send Message</span>
               </button>
@@ -649,10 +655,34 @@
             type="text/javascript"
             src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"
           ></script>
+
           <script type="text/javascript">
-            (function () {
-              emailjs.init("yaYC-dUuSO2SSkG5E"); // Reemplaza con tu User ID de EmailJS
-            })();
+            emailjs.init("yaYC-dUuSO2SSkG5E");
+          </script>
+          <script>
+            const btn = document.getElementById("button");
+
+            document
+              .getElementById("form")
+              .addEventListener("submit", function (event) {
+                event.preventDefault();
+
+                btn.value = "Sending...";
+
+                const serviceID = "default_service";
+                const templateID = "template_m77z8d9";
+
+                emailjs.sendForm(serviceID, templateID, this).then(
+                  () => {
+                    btn.value = "Send Email";
+                    alert("Sent!");
+                  },
+                  (err) => {
+                    btn.value = "Send Email";
+                    alert(JSON.stringify(err));
+                  }
+                );
+              });
           </script>
         </article>
       </div>
