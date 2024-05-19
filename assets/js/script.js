@@ -1,9 +1,9 @@
-'use strict';
-
-
+"use strict";
 
 // element toggle function
-const elementToggleFunc = function (elem) { elem.classList.toggle("active"); }
+const elementToggleFunc = function (elem) {
+  elem.classList.toggle("active");
+};
 
 console.log("script.js is loaded");
 
@@ -12,9 +12,9 @@ const sidebar = document.querySelector("[data-sidebar]");
 const sidebarBtn = document.querySelector("[data-sidebar-btn]");
 
 // sidebar toggle functionality for mobile
-sidebarBtn.addEventListener("click", function () { elementToggleFunc(sidebar); });
-
-
+sidebarBtn.addEventListener("click", function () {
+  elementToggleFunc(sidebar);
+});
 
 // testimonials variables
 const testimonialsItem = document.querySelectorAll("[data-testimonials-item]");
@@ -31,26 +31,23 @@ const modalText = document.querySelector("[data-modal-text]");
 const testimonialsModalFunc = function () {
   modalContainer.classList.toggle("active");
   overlay.classList.toggle("active");
-}
+};
 
 // add click event to all modal items
 for (let i = 0; i < testimonialsItem.length; i++) {
-
   testimonialsItem[i].addEventListener("click", function () {
-
     modalImg.src = this.querySelector("[data-testimonials-avatar]").src;
     modalImg.alt = this.querySelector("[data-testimonials-avatar]").alt;
-    modalTitle.innerHTML = this.querySelector("[data-testimonials-title]").innerHTML;
-    modalText.innerHTML = this.querySelector("[data-testimonials-text]").innerHTML;
+    modalTitle.innerHTML = this.querySelector(
+      "[data-testimonials-title]"
+    ).innerHTML;
+    modalText.innerHTML = this.querySelector(
+      "[data-testimonials-text]"
+    ).innerHTML;
 
     testimonialsModalFunc();
-
   });
-
 }
-
-
-
 
 // custom select variables
 const select = document.querySelector("[data-select]");
@@ -58,17 +55,17 @@ const selectItems = document.querySelectorAll("[data-select-item]");
 const selectValue = document.querySelector("[data-selecct-value]");
 const filterBtn = document.querySelectorAll("[data-filter-btn]");
 
-select.addEventListener("click", function () { elementToggleFunc(this); });
+select.addEventListener("click", function () {
+  elementToggleFunc(this);
+});
 
 // add event in all select items
 for (let i = 0; i < selectItems.length; i++) {
   selectItems[i].addEventListener("click", function () {
-
     let selectedValue = this.innerText.toLowerCase();
     selectValue.innerText = this.innerText;
     elementToggleFunc(select);
     filterFunc(selectedValue);
-
   });
 }
 
@@ -76,9 +73,7 @@ for (let i = 0; i < selectItems.length; i++) {
 const filterItems = document.querySelectorAll("[data-filter-item]");
 
 const filterFunc = function (selectedValue) {
-
   for (let i = 0; i < filterItems.length; i++) {
-
     if (selectedValue === "all") {
       filterItems[i].classList.add("active");
     } else if (selectedValue === filterItems[i].dataset.category) {
@@ -86,18 +81,14 @@ const filterFunc = function (selectedValue) {
     } else {
       filterItems[i].classList.remove("active");
     }
-
   }
-
-}
+};
 
 // add event in all filter button items for large screen
 let lastClickedBtn = filterBtn[0];
 
 for (let i = 0; i < filterBtn.length; i++) {
-
   filterBtn[i].addEventListener("click", function () {
-
     let selectedValue = this.innerText.toLowerCase();
     selectValue.innerText = this.innerText;
     filterFunc(selectedValue);
@@ -105,12 +96,8 @@ for (let i = 0; i < filterBtn.length; i++) {
     lastClickedBtn.classList.remove("active");
     this.classList.add("active");
     lastClickedBtn = this;
-
   });
-
 }
-
-
 
 // contact form variables
 const form = document.querySelector("[data-form]");
@@ -120,18 +107,14 @@ const formBtn = document.querySelector("[data-form-btn]");
 // add event to all form input field
 for (let i = 0; i < formInputs.length; i++) {
   formInputs[i].addEventListener("input", function () {
-
     // check form validation
     if (form.checkValidity()) {
       formBtn.removeAttribute("disabled");
     } else {
       formBtn.setAttribute("disabled", "");
     }
-
   });
 }
-
-
 
 // page navigation variables
 const navigationLinks = document.querySelectorAll("[data-nav-link]");
@@ -140,7 +123,6 @@ const pages = document.querySelectorAll("[data-page]");
 // add event to all nav link
 for (let i = 0; i < navigationLinks.length; i++) {
   navigationLinks[i].addEventListener("click", function () {
-
     for (let i = 0; i < pages.length; i++) {
       if (this.innerHTML.toLowerCase() === pages[i].dataset.page) {
         pages[i].classList.add("active");
@@ -151,69 +133,65 @@ for (let i = 0; i < navigationLinks.length; i++) {
         navigationLinks[i].classList.remove("active");
       }
     }
-
   });
 }
 
+document.addEventListener("DOMContentLoaded", function () {
+  const form = document.querySelector("[data-form]");
+  const response = document.getElementById("response");
+  const submitButton = document.querySelector("[data-form-btn]");
 
-document.addEventListener('DOMContentLoaded', function() {
-  const form = document.querySelector('[data-form]');
-  const response = document.getElementById('response');
-  const submitButton = document.querySelector('[data-form-btn]');
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
 
-  form.addEventListener('submit', function(event) {
-      event.preventDefault();
+    // Obtener los datos del formulario
+    const fullname = form.querySelector('input[name="fullname"]').value;
+    const email = form.querySelector('input[name="email"]').value;
+    const message = form.querySelector('textarea[name="message"]').value;
 
-      // Obtener los datos del formulario
-      const fullname = form.querySelector('input[name="fullname"]').value;
-      const email = form.querySelector('input[name="email"]').value;
-      const message = form.querySelector('textarea[name="message"]').value;
+    // Parámetros para la plantilla de EmailJS
+    const templateParams = {
+      from_name: fullname,
+      from_email: email,
+      message: message,
+    };
 
-      // Parámetros para la plantilla de EmailJS
-      const templateParams = {
-          from_name: fullname,
-          from_email: email,
-          message: message
-      };
-
-      // Enviar el correo electrónico usando EmailJS
-      emailjs.send('yaYC-dUuSO2SSkG5E', 'template_m77z8d9', templateParams)
-          .then(function(response) {
-              console.log('SUCCESS!', response.status, response.text);
-              response.innerHTML = '¡Mensaje enviado exitosamente!';
-              form.reset();
-          }, function(error) {
-              console.error('FAILED...', error);
-              response.innerHTML = 'Hubo un error al enviar el mensaje. Por favor, inténtalo de nuevo.';
-          });
+    // Enviar el correo electrónico usando EmailJS
+    emailjs.send("yaYC-dUuSO2SSkG5E", "template_m77z8d9", templateParams).then(
+      function (response) {
+        console.log("SUCCESS!", response.status, response.text);
+        response.innerHTML = "¡Mensaje enviado exitosamente!";
+        form.reset();
+      },
+      function (error) {
+        console.error("FAILED...", error);
+        response.innerHTML =
+          "Hubo un error al enviar el mensaje. Por favor, inténtalo de nuevo.";
+      }
+    );
   });
 
   // Habilitar el botón de envío cuando todos los campos estén completos
-  form.addEventListener('input', function() {
-      const allFilled = Array.from(form.querySelectorAll('[data-form-input]'))
-          .every(input => input.value.trim() !== '');
-      submitButton.disabled = !allFilled;
-  });
 });
 
+const btn = document.getElementById("form-btn");
 
-const btn = document.getElementById('form-btn');
+document.getElementById("form").addEventListener("submit", function (event) {
+  event.preventDefault();
+  console.log("enviado");
+  btn.value = "Sending...";
 
-document.getElementById('form')
- .addEventListener('submit', function(event) {
-   event.preventDefault();
+  const serviceID = "service_tr5fsuh";
+  const templateID = "template_m77z8d9";
 
-   btn.value = 'Sending...';
-
-   const serviceID = 'service_tr5fsuh';
-   const templateID = 'template_m77z8d9';
-
-   emailjs.sendForm(serviceID, templateID, this)
-    .then(() => {
-      btn.value = 'Send Email';
-      alert('Sent!');
-    }, (err) => {
-      btn.value = 'Send Email';
+  emailjs.sendForm(serviceID, templateID, this).then(
+    () => {
+      btn.value = "Send Email";
+      alert("Sent!");
+    },
+    (err) => {
+      btn.value = "Send Email";
       alert(JSON.stringify(err));
-    });
+    }
+  );
 });
