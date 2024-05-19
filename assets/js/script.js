@@ -177,7 +177,7 @@ document.addEventListener('DOMContentLoaded', function() {
       };
 
       // Enviar el correo electrónico usando EmailJS
-      emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
+      emailjs.send('yaYC-dUuSO2SSkG5E', 'template_m77z8d9', templateParams)
           .then(function(response) {
               console.log('SUCCESS!', response.status, response.text);
               response.innerHTML = '¡Mensaje enviado exitosamente!';
@@ -194,4 +194,26 @@ document.addEventListener('DOMContentLoaded', function() {
           .every(input => input.value.trim() !== '');
       submitButton.disabled = !allFilled;
   });
+});
+
+
+const btn = document.getElementById('form-btn');
+
+document.getElementById('form')
+ .addEventListener('submit', function(event) {
+   event.preventDefault();
+
+   btn.value = 'Sending...';
+
+   const serviceID = 'service_tr5fsuh';
+   const templateID = 'template_m77z8d9';
+
+   emailjs.sendForm(serviceID, templateID, this)
+    .then(() => {
+      btn.value = 'Send Email';
+      alert('Sent!');
+    }, (err) => {
+      btn.value = 'Send Email';
+      alert(JSON.stringify(err));
+    });
 });
