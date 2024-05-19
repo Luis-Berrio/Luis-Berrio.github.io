@@ -645,6 +645,47 @@
               </button>
             </form>
           </section>
+          <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const form = document.querySelector('[data-form]');
+                const formButton = form.querySelector('[data-form-btn]');
+                const formStatus = form.querySelector('.form-status');
+            
+                form.addEventListener('submit', function(event) {
+                    event.preventDefault();
+            
+                    const formData = new FormData(form);
+            
+                    fetch(form.getAttribute('action'), {
+                        method: form.getAttribute('method'),
+                        body: formData
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            return response.text();
+                        } else {
+                            throw new Error('Failed to send email');
+                        }
+                    })
+                    .then(data => {
+                        form.reset();
+                        formButton.disabled = true;
+                        formStatus.style.display = 'block';
+                        formStatus.textContent = 'Message sent successfully!';
+                    })
+                    .catch(error => {
+                        formStatus.style.display = 'block';
+                        formStatus.textContent = 'Error sending message: ' + error.message;
+                    });
+                });
+            
+                form.addEventListener('input', function() {
+                    const inputs = form.querySelectorAll('[data-form-input]');
+                    const isValid = Array.from(inputs).every(input => input.validity.valid);
+                    formButton.disabled = !isValid;
+                });
+            });
+            </script>
         </article>
       </div>
     </main>
