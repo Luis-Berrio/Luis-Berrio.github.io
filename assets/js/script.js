@@ -153,7 +153,7 @@ document.addEventListener('DOMContentLoaded', function() {
           emailjs.sendForm(serviceID, templateID, this)
               .then(() => {
                   btn.value = 'Send Email';
-                  alert('Sent!');
+                  alert('Email sent!');
               }, (err) => {
                   btn.value = 'Send Email';
                   alert(JSON.stringify(err));
