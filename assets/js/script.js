@@ -138,7 +138,7 @@ for (let i = 0; i < navigationLinks.length; i++) {
 
 const btn = document.getElementById("btn");
 
-document.getElementById("form").addEventListener("submit", function (event) {
+document.getElementById("form-email").addEventListener("submit", function (event) {
   event.preventDefault();
   console.log("enviado");
   btn.value = "Sending...";
