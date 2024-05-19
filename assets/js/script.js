@@ -135,3 +135,27 @@ for (let i = 0; i < navigationLinks.length; i++) {
     }
   });
 }
+
+const btn = document.getElementById("btn");
+
+document
+  .getElementById("form-btn")
+  .addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    btn.value = "Sending...";
+
+    const serviceID = "default_service";
+    const templateID = "template_m77z8d9";
+
+    emailjs.sendForm(serviceID, templateID, this).then(
+      () => {
+        btn.value = "Send Email";
+        alert("Sent!");
+      },
+      (err) => {
+        btn.value = "Send Email";
+        alert(JSON.stringify(err));
+      }
+    );
+  });
