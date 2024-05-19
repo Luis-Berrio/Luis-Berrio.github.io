@@ -135,6 +135,9 @@ for (let i = 0; i < navigationLinks.length; i++) {
     }
   });
 }
+
+
+
 document.addEventListener('DOMContentLoaded', function() {
   const btn = document.getElementById('btn');
   const form = document.getElementById('form-email');
