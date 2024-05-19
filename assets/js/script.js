@@ -111,7 +111,7 @@ for (let i = 0; i < formInputs.length; i++) {
     if (form.checkValidity()) {
       formBtn.removeAttribute("disabled");
     } else {
-      formBtn.setAttribute("disabled", "");
+      //formBtn.setAttribute("disabled", "");
     }
   });
 }
