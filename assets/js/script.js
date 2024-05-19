@@ -136,7 +136,7 @@ for (let i = 0; i < navigationLinks.length; i++) {
   });
 }
 
-const btn = document.getElementById("form-btn");
+const btn = document.getElementById("btn");
 
 document.getElementById("form").addEventListener("submit", function (event) {
   event.preventDefault();
