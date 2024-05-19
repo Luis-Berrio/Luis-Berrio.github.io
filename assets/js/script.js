@@ -154,3 +154,44 @@ for (let i = 0; i < navigationLinks.length; i++) {
 
   });
 }
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  const form = document.querySelector('[data-form]');
+  const response = document.getElementById('response');
+  const submitButton = document.querySelector('[data-form-btn]');
+
+  form.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      // Obtener los datos del formulario
+      const fullname = form.querySelector('input[name="fullname"]').value;
+      const email = form.querySelector('input[name="email"]').value;
+      const message = form.querySelector('textarea[name="message"]').value;
+
+      // Parámetros para la plantilla de EmailJS
+      const templateParams = {
+          from_name: fullname,
+          from_email: email,
+          message: message
+      };
+
+      // Enviar el correo electrónico usando EmailJS
+      emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
+          .then(function(response) {
+              console.log('SUCCESS!', response.status, response.text);
+              response.innerHTML = '¡Mensaje enviado exitosamente!';
+              form.reset();
+          }, function(error) {
+              console.error('FAILED...', error);
+              response.innerHTML = 'Hubo un error al enviar el mensaje. Por favor, inténtalo de nuevo.';
+          });
+  });
+
+  // Habilitar el botón de envío cuando todos los campos estén completos
+  form.addEventListener('input', function() {
+      const allFilled = Array.from(form.querySelectorAll('[data-form-input]'))
+          .every(input => input.value.trim() !== '');
+      submitButton.disabled = !allFilled;
+  });
+});
