@@ -440,7 +440,7 @@
 
 .contact-link:hover{
   text-decoration: none;
-  color: inherit;
+  color: var(--white-2);
 }
 
   .contact-info address { font-style: normal; }
